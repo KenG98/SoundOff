@@ -46,14 +46,20 @@ public class InputEngine {
         
         //if it hears the right pitch for x ms,
         
+        boolean isHighBeep = false;
+        boolean isLowBeep = false;
+        long highBeepStart;
+        long lowBeepStart;
+        
         while(continueListen){
             float[][] features = sp.getFeatures();
+            
             if(features != null){
-                System.out.println("-----------------");
                 for(int i = 0; i < features.length; i++){
-                    if((features[i][0] > 860 && features[i][0] > 900) || (features[i][0] > 420 && features[i][0] < 460)){
-                        System.out.println(features[i][0] + " " + features[i][1]);
+                    if(features[i][0] > Constants.HIGH_FREQ - 10 && features[i][0] < Constants.HIGH_FREQ + 10){
+                        
                     }
+                    if(features[i][0] > Constants.LOW_FREQ - 10 && features[i][0] < Constants.LOW_FREQ + 10)
                 }
             }
         }
