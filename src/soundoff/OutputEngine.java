@@ -5,10 +5,47 @@
  */
 package soundoff;
 
+import net.beadsproject.beads.core.AudioContext;
+import net.beadsproject.beads.data.Buffer;
+import net.beadsproject.beads.ugens.WavePlayer;
+
 /**
  *
  * @author kengarber
  */
 public class OutputEngine {
+    private String textToSend;
+    private byte[] binaryToSend;
+    
+    public OutputEngine(String text){
+        textToSend = text;
+        binaryToSend = BinStringConverter.stringToBin(textToSend);
+    }
+    
+    public void play(){
+        AudioContext ac = new AudioContext();
+        WavePlayer highNote = new WavePlayer(ac, Constants.HIGH_FREQ, Buffer.SINE);
+        WavePlayer lowNote = new WavePlayer(ac, Constants.LOW_FREQ, Buffer.SINE);
+        lowNote.pause(true);
+        highNote.pause(true); //might have to switch this and what is below
+        ac.out.addInput(highNote);
+        ac.out.addInput(lowNote);
+        ac.start();
+        
+        
+        //begin note (x ms high)
+        long startNoteBegin = System.currentTimeMillis();
+        highNote.pause(false);
+        while(startNoteBegin > System.currentTimeMillis() - Constants.START_END_BEEP_LEN){
+            //this holds the highNote ON for x ms
+        }
+        highNote.pause(true);
+        
+        //play message
+        
+        //end note (x ms high)
+        
+        ac.stop();
+    }
     
 }

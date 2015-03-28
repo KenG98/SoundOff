@@ -11,4 +11,12 @@ package soundoff;
  */
 public class BinStringConverter {
     
+    public static byte[] stringToBin(String text){
+        return text.getBytes(); //this doesnt work, must change it
+    }
+    
+    public static String binToString(String binary){
+        return binary; //doesnt work, need to change it
+    }
+    
 }
