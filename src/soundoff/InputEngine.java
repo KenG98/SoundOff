@@ -50,16 +50,21 @@ public class InputEngine {
         boolean isLowBeep = false;
         long highBeepStart;
         long lowBeepStart;
+        long beepLength;
         
         while(continueListen){
             float[][] features = sp.getFeatures();
             
             if(features != null){
                 for(int i = 0; i < features.length; i++){
-                    if(features[i][0] > Constants.HIGH_FREQ - 10 && features[i][0] < Constants.HIGH_FREQ + 10){
+                    if(features[i][0] > Constants.HIGH_FREQ - 10 && features[i][0] < Constants.HIGH_FREQ + 10 && features[i][1] > 1){
+                        //a high note is playing
                         
                     }
-                    if(features[i][0] > Constants.LOW_FREQ - 10 && features[i][0] < Constants.LOW_FREQ + 10)
+                    if(features[i][0] > Constants.LOW_FREQ - 10 && features[i][0] < Constants.LOW_FREQ + 10 && features[i][1] > 1){
+                        //a low note is playing
+                        
+                    }
                 }
             }
         }
