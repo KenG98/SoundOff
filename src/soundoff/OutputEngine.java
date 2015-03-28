@@ -23,12 +23,6 @@ public class OutputEngine {
     }
     
     public void play(){
-        //print message
-        for(int i = 0; i < binaryToSend.length; i++){
-            System.out.print(binaryToSend[i]);
-        }
-        
-        
         AudioContext ac = new AudioContext();
         WavePlayer highNote = new WavePlayer(ac, Constants.HIGH_FREQ, Buffer.SINE);
         WavePlayer lowNote = new WavePlayer(ac, Constants.LOW_FREQ, Buffer.SINE);
@@ -37,7 +31,6 @@ public class OutputEngine {
         ac.out.addInput(highNote);
         ac.out.addInput(lowNote);
         ac.start();
-        
         
         //begin note (x ms high)
         System.out.println("Start note playing...");
@@ -67,7 +60,6 @@ public class OutputEngine {
                 }
             }
         }
-        
         
         //end note (x ms high)
         System.out.println("End note playing...");

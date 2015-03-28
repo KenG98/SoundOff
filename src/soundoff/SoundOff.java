@@ -16,8 +16,12 @@ public class SoundOff {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        OutputEngine oe = new OutputEngine("cnn.com");
-        oe.play();
+        
+//        OutputEngine oe = new OutputEngine("cnn.com");
+//        oe.play();
+        
+        InputEngine ie = new InputEngine();
+        ie.listen();
     }
     
 }
