@@ -6,6 +6,7 @@
 package soundoff;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import net.beadsproject.beads.analysis.featureextractors.FFT;
 import net.beadsproject.beads.analysis.featureextractors.PowerSpectrum;
 import net.beadsproject.beads.analysis.featureextractors.SpectralPeaks;
@@ -25,10 +26,10 @@ public class InputEngine {
 
     private int whatNote(float[][] notes) {
         for (int i = 0; i < notes.length; i++) {
-            if (notes[i][0] < Constants.HIGH_FREQ + 10 && notes[i][0] > Constants.HIGH_FREQ - 10 && notes[i][1] > 0.5) {
+            if (notes[i][0] < Constants.HIGH_FREQ + 20 && notes[i][0] > Constants.HIGH_FREQ - 20 && notes[i][1] > 0.05) {
                 return 10;
             }
-            if (notes[i][0] < Constants.LOW_FREQ + 10 && notes[i][0] > Constants.LOW_FREQ - 10 && notes[i][1] > 0.5) {
+            if (notes[i][0] < Constants.LOW_FREQ + 20 && notes[i][0] > Constants.LOW_FREQ - 20 && notes[i][1] > 0.05) {
                 return -10;
             }
 //            if(notes[i][0] < Constants.TERMINAL_BEEP_FREQ + 10 && notes[i][0] > Constants.TERMINAL_BEEP_FREQ - 10 && notes[i][1] > 0.5){
@@ -62,7 +63,7 @@ public class InputEngine {
         long startedListen = System.currentTimeMillis();
         long lastListen = System.currentTimeMillis();
         while (startedListen > System.currentTimeMillis() - 15000) { // ms
-            if (System.currentTimeMillis() > lastListen + Constants.DELTA_CHECKS) {
+            if (System.currentTimeMillis() > lastListen + Constants.DELTA_CHECKS - 1) {
                 lastListen = System.currentTimeMillis();
                 float[][] features = sp.getFeatures();
                 if (features != null) {
@@ -71,9 +72,51 @@ public class InputEngine {
                 }
             }
         }
+        
         for(int beep : beeps){
             System.out.println(beep + " ");
         }
+        
+        int samplesPerWave = Constants.BEEP_LENGTH / Constants.DELTA_CHECKS;
+        Integer[] beepArray = beeps.toArray(new Integer[beeps.size()]);
+        int startIndex = 0;
+        int endIndex = 0;
+        for(int i = 0; i < beepArray.length - 2; i++){
+            if(beepArray[i] != 0 && beepArray[i+1] != 0 && beepArray[i+2] != 0){
+                startIndex = i;
+                break;
+            }
+        }
+        for(int i = 0; i < beepArray.length - 2; i++){
+            if(beepArray[i] == 0 && beepArray[i+1] == 0 && beepArray[i+2] == 0){
+                endIndex = i;
+                break;
+            }
+        }
+        
+        Integer[] beepArrayShort = Arrays.copyOfRange(beepArray, startIndex, endIndex);
+        
+        String finalBinary = "";
+        
+        for(int i = 0; i < beepArrayShort.length; i += samplesPerWave){
+            Integer[] shortSample = Arrays.copyOfRange(beepArrayShort, i, i+5);
+            int sumSample = 0;
+            for(int n = 0; n < shortSample.length; n ++){
+                sumSample += shortSample[n];
+            }
+            sumSample /= shortSample.length;
+            if(sumSample > 0){
+                finalBinary += "1";
+            }
+            if(sumSample < 0){
+                finalBinary += "0";
+            }
+        }
+        
+        String finalMessage = BinStringConverter.binToString(finalBinary);
+        
+        
+        
 
         //----------------
 //        boolean messageNotYetStarted = true;
@@ -136,6 +179,6 @@ public class InputEngine {
         //if it hears the right pitch for x ms, then neither of the right pitches, it stops collecting
         //process things into 1s and 0s
         //return
-        return "";
+        return finalMessage;
     }
 }

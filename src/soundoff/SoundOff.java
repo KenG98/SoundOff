@@ -21,7 +21,8 @@ public class SoundOff {
         oe.play();
         
 //        InputEngine ie = new InputEngine();
-//        ie.listen();
+//        String message = ie.listen();
+//        System.out.println(message);
 
 //        BinStringConverter.stringToBin("cnn.com");
 //        char[] someBin = BinStringConverter.stringToBin("cnn.com");
