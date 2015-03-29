@@ -20,8 +20,17 @@ public class SoundOff {
 //        OutputEngine oe = new OutputEngine("cnn.com");
 //        oe.play();
         
-        InputEngine ie = new InputEngine();
-        ie.listen();
+//        InputEngine ie = new InputEngine();
+//        ie.listen();
+
+//        BinStringConverter.stringToBin("cnn.com");
+        char[] someBin = BinStringConverter.stringToBin("cnn.com");
+        String input = "";
+        for(int i = 0;i < someBin.length; i++){
+            input += someBin[i];
+        }
+        System.out.println(input);
+        BinStringConverter.binToString(input);
     }
     
 }

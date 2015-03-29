@@ -31,7 +31,17 @@ public class BinStringConverter {
     }
     
     public static String binToString(String binary){
-        return binary; //doesnt work, need to change it
+        String outString = "";
+        for(int i=0; i<binary.length(); i+=7){
+            String tempStr = binary.substring(i, i+7);
+            System.out.print(tempStr + " ");
+            System.out.println((char)Integer.parseInt(tempStr, 2));
+//            String textOut = BinStringConverter.binToString(binary);
+//            System.out.println(textOut);
+            outString += (char)Integer.parseInt(tempStr, 2);
+        }
+        System.out.println (outString);
+        return outString; //doesnt work, need to change it
     }
     
 }
