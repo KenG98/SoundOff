@@ -75,7 +75,7 @@ public class InputEngine {
                 }
                 if(!hasStarted && beeps.size() > 2*samplesPerWave + 1){
                     boolean hasNote = true;
-                    for(int i = 0; i < 4 * samplesPerWave;i++){
+                    for(int i = 0; i < 2 * samplesPerWave;i++){
                         if(beeps.get(beeps.size() - i - 1) != 0){
                             hasNote = hasNote && true;
                         }else{
