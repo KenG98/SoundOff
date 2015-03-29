@@ -100,18 +100,20 @@ public class GUI extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //SEND
-//        jLabel2.setText("Sending...");
+        this.jLabel2.setText("Sending...");
         OutputEngine oe = new OutputEngine(jTextField1.getText());
         oe.play();
-//        jLabel2.setText("Ready.");
+        this.jLabel2.setText("Ready.");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //RECEIVE
+        this.jLabel2.setText("Receiving...");
         InputEngine ie = new InputEngine();
         String message = ie.listen();
         jTextField1.setText(message);
+        this.jLabel2.setText("Ready.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

@@ -62,7 +62,10 @@ public class InputEngine {
         ArrayList<Integer> beeps = new ArrayList<>();
         long startedListen = System.currentTimeMillis();
         long lastListen = System.currentTimeMillis();
-        while (startedListen > System.currentTimeMillis() - 15000) { // ms
+        int samplesPerWave = Constants.BEEP_LENGTH / Constants.DELTA_CHECKS;
+        boolean shouldStop = false;
+        boolean hasStarted = false;
+        while (!shouldStop) { 
             if (System.currentTimeMillis() > lastListen + Constants.DELTA_CHECKS - 1) {
                 lastListen = System.currentTimeMillis();
                 float[][] features = sp.getFeatures();
@@ -70,14 +73,38 @@ public class InputEngine {
                     int note = whatNote(features);
                     beeps.add(note);
                 }
+                if(!hasStarted && beeps.size() > 2*samplesPerWave + 1){
+                    boolean hasNote = true;
+                    for(int i = 0; i < 2 * samplesPerWave;i++){
+                        if(beeps.get(beeps.size() - i - 1) != 0){
+                            hasNote = hasNote && true;
+                        }else{
+                            hasNote = false;
+                        }
+                    }
+                    if(hasNote){
+                        hasStarted = true;
+                    }
+                }
+                if(hasStarted){
+                    boolean stopping = true;
+                    for(int i = 0; i < 2 * samplesPerWave;i++){
+                        if(beeps.get(beeps.size() - i - 1) == 0){
+                            stopping = stopping && true;
+                        }else{
+                            stopping = false;
+                        }
+                    }
+                    if(stopping){
+                        shouldStop = true;
+                    }
+                }
             }
         }
         
         for(int beep : beeps){
             System.out.println(beep + " ");
         }
-        
-        int samplesPerWave = Constants.BEEP_LENGTH / Constants.DELTA_CHECKS;
         
         Integer[] beepArray = beeps.toArray(new Integer[beeps.size()]);
         
