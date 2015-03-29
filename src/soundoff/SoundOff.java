@@ -32,5 +32,4 @@ public class SoundOff {
 //        System.out.println(input);
 //        BinStringConverter.binToString(input);
     }
-    
 }

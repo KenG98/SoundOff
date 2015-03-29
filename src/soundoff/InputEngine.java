@@ -61,15 +61,13 @@ public class InputEngine {
         ArrayList<Integer> beeps = new ArrayList<>();
         long startedListen = System.currentTimeMillis();
         long lastListen = System.currentTimeMillis();
-        while (startedListen > System.currentTimeMillis() - 10000) { // ms
+        while (startedListen > System.currentTimeMillis() - 15000) { // ms
             if (System.currentTimeMillis() > lastListen + Constants.DELTA_CHECKS) {
                 lastListen = System.currentTimeMillis();
                 float[][] features = sp.getFeatures();
                 if (features != null) {
                     int note = whatNote(features);
-                    if(note != 0){
-                        beeps.add(note);
-                    }
+                    beeps.add(note);
                 }
             }
         }
