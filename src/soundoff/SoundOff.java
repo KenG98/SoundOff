@@ -17,20 +17,18 @@ public class SoundOff {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        OutputEngine oe = new OutputEngine("cnn.com");
-        oe.play();
+//        OutputEngine oe = new OutputEngine("at.com");
+//        oe.play();
         
-//        InputEngine ie = new InputEngine();
-//        String message = ie.listen();
-//        System.out.println(message);
+        InputEngine ie = new InputEngine();
+        String message = ie.listen();
+        System.out.println(message);
 
-//        BinStringConverter.stringToBin("cnn.com");
 //        char[] someBin = BinStringConverter.stringToBin("cnn.com");
 //        String input = "";
 //        for(int i = 0;i < someBin.length; i++){
 //            input += someBin[i];
 //        }
-//        System.out.println(input);
 //        BinStringConverter.binToString(input);
     }
 }

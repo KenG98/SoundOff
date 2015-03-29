@@ -78,7 +78,9 @@ public class InputEngine {
         }
         
         int samplesPerWave = Constants.BEEP_LENGTH / Constants.DELTA_CHECKS;
+        
         Integer[] beepArray = beeps.toArray(new Integer[beeps.size()]);
+        
         int startIndex = 0;
         int endIndex = 0;
         for(int i = 0; i < beepArray.length - 2; i++){
@@ -88,23 +90,26 @@ public class InputEngine {
             }
         }
         for(int i = 0; i < beepArray.length - 2; i++){
-            if(beepArray[i] == 0 && beepArray[i+1] == 0 && beepArray[i+2] == 0){
+            if(i > startIndex && beepArray[i] == 0 && beepArray[i+1] == 0 && beepArray[i+2] == 0){
                 endIndex = i;
                 break;
             }
         }
         
-        Integer[] beepArrayShort = Arrays.copyOfRange(beepArray, startIndex, endIndex);
+//        Integer[] beepArrayShort = Arrays.copyOfRange(beepArray, startIndex, endIndex);
+        int[] beepArrayShort = new int[endIndex - startIndex];
+        for(int i = 0; i < endIndex - startIndex; i++){
+            beepArrayShort[i] = beepArray[i + startIndex];
+        }
         
         String finalBinary = "";
         
         for(int i = 0; i < beepArrayShort.length; i += samplesPerWave){
-            Integer[] shortSample = Arrays.copyOfRange(beepArrayShort, i, i+5);
+            int[] shortSample = Arrays.copyOfRange(beepArrayShort, i, i+5);
             int sumSample = 0;
-            for(int n = 0; n < shortSample.length; n ++){
+            for(int n = 0; n < shortSample.length; n++){
                 sumSample += shortSample[n];
             }
-            sumSample /= shortSample.length;
             if(sumSample > 0){
                 finalBinary += "1";
             }
