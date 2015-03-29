@@ -7,6 +7,7 @@ package soundoff;
 
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
+import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.WavePlayer;
 
 /**
@@ -24,12 +25,14 @@ public class OutputEngine {
     
     public void play(){
         AudioContext ac = new AudioContext();
+        Gain g = new Gain(ac, 1, (float) 1.0);
         WavePlayer highNote = new WavePlayer(ac, Constants.HIGH_FREQ, Buffer.SINE);
         WavePlayer lowNote = new WavePlayer(ac, Constants.LOW_FREQ, Buffer.SINE);
+        g.addInput(highNote);
+        g.addInput(lowNote);
         lowNote.pause(true);
         highNote.pause(true);
-        ac.out.addInput(highNote);
-        ac.out.addInput(lowNote);
+        ac.out.addInput(g);
         ac.start();
         
         long delayStart = System.currentTimeMillis();

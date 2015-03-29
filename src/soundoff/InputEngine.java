@@ -26,10 +26,10 @@ public class InputEngine {
 
     private int whatNote(float[][] notes) {
         for (int i = 0; i < notes.length; i++) {
-            if (notes[i][0] < Constants.HIGH_FREQ + 20 && notes[i][0] > Constants.HIGH_FREQ - 20 && notes[i][1] > 0.05) {
+            if (notes[i][0] < Constants.HIGH_FREQ + 25 && notes[i][0] > Constants.HIGH_FREQ - 25 && notes[i][1] > 0.04) {
                 return 10;
             }
-            if (notes[i][0] < Constants.LOW_FREQ + 20 && notes[i][0] > Constants.LOW_FREQ - 20 && notes[i][1] > 0.05) {
+            if (notes[i][0] < Constants.LOW_FREQ + 25 && notes[i][0] > Constants.LOW_FREQ - 25 && notes[i][1] > 0.04) {
                 return -10;
             }
 //            if(notes[i][0] < Constants.TERMINAL_BEEP_FREQ + 10 && notes[i][0] > Constants.TERMINAL_BEEP_FREQ - 10 && notes[i][1] > 0.5){
@@ -88,7 +88,7 @@ public class InputEngine {
                 }
                 if(hasStarted){
                     boolean stopping = true;
-                    for(int i = 0; i < 4 * samplesPerWave;i++){
+                    for(int i = 0; i < 2 * samplesPerWave;i++){
                         if(beeps.get(beeps.size() - i - 1) == 0){
                             stopping = stopping && true;
                         }else{
