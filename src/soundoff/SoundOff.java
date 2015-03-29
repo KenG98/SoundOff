@@ -16,15 +16,10 @@ public class SoundOff {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
-<<<<<<< HEAD
-        OutputEngine oe = new OutputEngine("Hi Ken");
-        oe.play();
-=======
+
 //        OutputEngine oe = new OutputEngine("at.com");
 //        oe.play();
->>>>>>> origin/master
-        
+
         InputEngine ie = new InputEngine();
         String message = ie.listen();
         System.out.println(message);
